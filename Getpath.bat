@@ -1,5 +1,9 @@
-@echo off
-set folder=%cd%
-powershell -Command "Get-ChildItem -Path '%folder%' -Recurse -Include *.jpg,*.png,*.gif | Select-Object -ExpandProperty FullName > %folder%\图片路径.txt"
-echo 图片路径已保存至%folder%\图片路径.txt
+@echo off 
+setlocal enabledelayedexpansion 
+set "root=%1" 
+set "output=%root%\Path.txt" 
+for /r "%root%" %%f in (*.jpg, *.jpeg, *.png, *.gif) do ( 
+    echo %%~ff>>"%output%" 
+) 
+echo "Image paths saved to %output%" 
 pause
